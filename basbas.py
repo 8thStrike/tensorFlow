@@ -52,3 +52,7 @@ fixb = tf.assign(b, [1.])
 sess.run([fixW, fixb])
 print('sess.run(loss, {x: [1, 2, 3, 4], y: [0, -1, -2, -3]})')
 print(sess.run(loss, {x: [1, 2, 3, 4], y: [0, -1, -2, -3]}))
+
+
+
+(TEST)
