@@ -16,15 +16,20 @@ from __future__ import print_function
 import tensorflow as tf
 from tensorflow.contrib import rnn
 
-# Import MNIST data
+# Import market data
+'''
+We need to import market data from data.csv
+First we need to understand the shape we need for the nn.
+
+=> Required Shape = 'timesteps' tensors list of shapt (batch_size, n_input)
+ where
+
+
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
+'''
 
-'''
-To classify images using a recurrent neural network, we consider every image
-row as a sequence of pixels. Because MNIST image shape is 28*28px, we will then
-handle 28 sequences of 28 steps for every sample.
-'''
+
 
 # Training Parameters
 learning_rate = 0.001
@@ -58,8 +63,9 @@ def RNN(x, weights, biases):
     # Required shape: 'timesteps' tensors list of shape (batch_size, n_input)
 
     # Unstack to get a list of 'timesteps' tensors of shape (batch_size, n_input)
+    print(x)
     x = tf.unstack(x, timesteps, 1)
-
+    print(x)
     # Define a lstm cell with tensorflow
     lstm_cell = rnn.BasicLSTMCell(num_hidden, forget_bias=1.0)
 
