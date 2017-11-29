@@ -24,6 +24,8 @@ mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 To classify images using a recurrent neural network, we consider every image
 row as a sequence of pixels. Because MNIST image shape is 28*28px, we will then
 handle 28 sequences of 28 steps for every sample.
+
+
 '''
 
 # Training Parameters
