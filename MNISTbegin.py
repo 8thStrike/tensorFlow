@@ -1,7 +1,10 @@
 import tensorflow as tf
 
+
+
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+
 
 
 #softmax regression
@@ -21,6 +24,7 @@ sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 for _ in range(1000):
   batch_xs, batch_ys = mnist.train.next_batch(100)
+  print(batch_xs.shape)
   sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
 
 

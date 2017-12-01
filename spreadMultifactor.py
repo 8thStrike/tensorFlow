@@ -15,10 +15,10 @@ market = tf.stack([col2, col3, col5, col6, col7, col8, col9])    #col4 is DEM 10
 #usa = tf.stack([col6, col7, col8, col9])
 tenDEM = tf.stack([col4])
 
-market_train_array=np.array([])
-market_test_array=np.array([])
-tenDEM_test=np.array([])
+market_train_array=np.array([[]])
+market_test_array=np.array([[]])
 tenDEM_train=np.array([])
+tenDEM_test=np.array([])
 
 
 with tf.Session() as sess:
@@ -29,18 +29,22 @@ with tf.Session() as sess:
   for i in range(1800):
     # Retrieve a single instance:
     date_train, market_train, tenDEM_temp = sess.run([col1,market, tenDEM]) #, col3, col4, col5, col6, col7, col8, col9])
-    market_train_array=np.append(market_train_array, market_train,0)
-    tenDEM_train=np.append(tenDEM_train, tenDEM_temp,0)
+    if market_train_array.size==0:
+        market_train_array=np.append(market_train_array, [market_train],1)
+        tenDEM_train=np.append(tenDEM_train, tenDEM_temp)
+    market_train_array=np.append(market_train_array, [market_train],0)
+    tenDEM_train=np.append(tenDEM_train, tenDEM_temp)
 
   for i in range(1801,2100):
     date_test, market_test, tenDEM_temp = sess.run([col1, market, tenDEM])
-    market_test_array=np.append(market_test_array,market_train,0 )
+    if market_test_array.size==0:
+        market_test_array=np.append(market_test_array, [market_test],1)
+    market_test_array=np.append(market_test_array, [market_test],0)
     tendDEM_test=np.append(tenDEM_test, tenDEM_temp,0)
 
   coord.request_stop()
   coord.join(threads)
 
-print(tenDEM_train)
 
 
 sess=tf.InteractiveSession()
@@ -62,6 +66,12 @@ train = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
 sess= tf.InteractiveSession()
 tf.global_variables_initializer().run()
+
+print("market_train_array.shape")
+print(market_train_array.shape)
+print("W.shape")
+print(W.shape)
+
 
 
 for i in range(200):
